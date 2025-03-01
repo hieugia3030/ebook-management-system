@@ -1,6 +1,6 @@
 <div class="container-fluid" style="height: 10px;background-color: #303f9f"></div>
 
-<div class="container-fluid p-3">
+<div class="container-fluid p-3 bg-light">
 <div class="row"> 
 <div class="col-md-3 text-success"> 
 <h3> <i class="fas fa-book"></i> Ebooks</h3> 

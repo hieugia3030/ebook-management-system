@@ -27,7 +27,7 @@ background-repeat: no-repeat;
             <h2 class="text-center text-danger">EBook Management System</h2>
         </div>
        
-<!-- Start Recent Book -->
+<!-- Start Recent Bookt -->
         
         <div class="container">
             <h3 class="text-center">Recent Books</h3>
@@ -40,9 +40,9 @@ background-repeat: no-repeat;
                     <p>Josh Thompsons</p>
                     <p>Categories:New</p>
                     <div class="row"> 
-                        <a href="" class="btn btn-danger btn-sm ml-2">Add Cart</a>
-                        <a href="" class="btn btn-success btn-sm ml-2">view Details</a>
-                        <a href="" class="btn btn-danger btn-sm ml-2">299</a>
+                        <a href="" class="btn btn-danger btn-sm ml-2"> <i class="fas fa-cart-plus"></i>Add Cart</a>
+                        <a href="" class="btn btn-success btn-sm ml-1">view Details</a>
+                        <a href="" class="btn btn-danger btn-sm ml-1">299</a>
                   </div>
                 </div>                        
                </div>    
@@ -51,14 +51,14 @@ background-repeat: no-repeat;
              <div class="col-md-3">
                    <div class="card crd-ho">
                      <div class="card-body text-center">
-                    <img alt="" src="book/jv2.jpg" style="width: 150px; height: 200px" class="img-thumblin">
-                    <p>Java Programing</p>
-                    <p>Josh Thompsons</p>
+                    <img alt="" src="book/c++.jpg" style="width: 150px; height: 200px" class="img-thumblin">
+                    <p>C++ Programing</p>
+                    <p>Xavier S Martin</p>
                     <p>Categories:New</p>
                     <div class="row"> 
-                        <a href="" class="btn btn-danger btn-sm ml-2">Add Cart</a>
-                        <a href="" class="btn btn-success btn-sm ml-2">view Details</a>
-                        <a href="" class="btn btn-danger btn-sm ml-2">299</a>
+                        <a href="" class="btn btn-danger btn-sm ml-2"> <i class="fas fa-cart-plus"></i>Add Cart</a>
+                        <a href="" class="btn btn-success btn-sm ml-1">view Details</a>
+                        <a href="" class="btn btn-danger btn-sm ml-1">299</a>
                   </div>
                 </div>                        
                </div>    
@@ -67,14 +67,14 @@ background-repeat: no-repeat;
             <div class="col-md-3">
                    <div class="card crd-ho">
                      <div class="card-body text-center">
-                    <img alt="" src="book/jv2.jpg" style="width: 150px; height: 200px" class="img-thumblin">
-                    <p>Java Programing</p>
-                    <p>Josh Thompsons</p>
+                    <img alt="" src="book/python.jpeg" style="width: 150px; height: 200px" class="img-thumblin">
+                    <p>Python Programing</p>
+                    <p>Learning book</p>
                     <p>Categories:New</p>
                     <div class="row"> 
-                        <a href="" class="btn btn-danger btn-sm ml-2">Add Cart</a>
-                        <a href="" class="btn btn-success btn-sm ml-2">view Details</a>
-                        <a href="" class="btn btn-danger btn-sm ml-2">299</a>
+                        <a href="" class="btn btn-danger btn-sm ml-2"> <i class="fas fa-cart-plus"></i>Add Cart</a>
+                        <a href="" class="btn btn-success btn-sm ml-1">view Details</a>
+                        <a href="" class="btn btn-danger btn-sm ml-1">299</a>
                   </div>
                 </div>                        
                </div>    
@@ -83,14 +83,14 @@ background-repeat: no-repeat;
             <div class="col-md-3">
                    <div class="card crd-ho">
                      <div class="card-body text-center">
-                    <img alt="" src="book/jv2.jpg" style="width: 150px; height: 200px" class="img-thumblin">
-                    <p>Java Programing</p>
-                    <p>Josh Thompsons</p>
+                    <img alt="" src="book/lmao.jpeg" style="width: 150px; height: 200px" class="img-thumblin">
+                    <p>C# Programing</p>
+                    <p>Radek Vystavel</p>
                     <p>Categories:New</p>
                     <div class="row"> 
-                        <a href="" class="btn btn-danger btn-sm ml-2">Add Cart</a>
-                        <a href="" class="btn btn-success btn-sm ml-2">view Details</a>
-                        <a href="" class="btn btn-danger btn-sm ml-2">299</a>
+                        <a href="" class="btn btn-danger btn-sm ml-2"> <i class="fas fa-cart-plus"></i>Add Cart</a>
+                        <a href="" class="btn btn-success btn-sm ml-1">view Details</a>
+                        <a href="" class="btn btn-danger btn-sm ml-1">299</a>
                   </div>
                 </div>                        
                </div>    
@@ -196,8 +196,7 @@ background-repeat: no-repeat;
                     <p>Josh Thompsons</p>
                     <p>Categories:New</p>
                     <div class="row"> 
-                        <a href="" class="btn btn-danger btn-sm ml-2">Add Cart</a>
-                        <a href="" class="btn btn-success btn-sm ml-2">view Details</a>
+                        <a href="" class="btn btn-success btn-sm ml-5">view Details</a>
                         <a href="" class="btn btn-danger btn-sm ml-2">299</a>
                   </div>
                 </div>                        
@@ -212,8 +211,7 @@ background-repeat: no-repeat;
                     <p>Josh Thompsons</p>
                     <p>Categories:New</p>
                     <div class="row"> 
-                        <a href="" class="btn btn-danger btn-sm ml-2">Add Cart</a>
-                        <a href="" class="btn btn-success btn-sm ml-2">view Details</a>
+                   <a href="" class="btn btn-success btn-sm ml-5">view Details</a>
                         <a href="" class="btn btn-danger btn-sm ml-2">299</a>
                   </div>
                 </div>                        
@@ -228,8 +226,7 @@ background-repeat: no-repeat;
                     <p>Josh Thompsons</p>
                     <p>Categories:New</p>
                     <div class="row"> 
-                        <a href="" class="btn btn-danger btn-sm ml-2">Add Cart</a>
-                        <a href="" class="btn btn-success btn-sm ml-2">view Details</a>
+                        <a href="" class="btn btn-success btn-sm ml-5">view Details</a>
                         <a href="" class="btn btn-danger btn-sm ml-2">299</a>
                   </div>
                 </div>                        
@@ -244,8 +241,7 @@ background-repeat: no-repeat;
                     <p>Josh Thompsons</p>
                     <p>Categories:New</p>
                     <div class="row"> 
-                        <a href="" class="btn btn-danger btn-sm ml-2">Add Cart</a>
-                        <a href="" class="btn btn-success btn-sm ml-2">view Details</a>
+                        <a href="" class="btn btn-success btn-sm ml-5">view Details</a>
                         <a href="" class="btn btn-danger btn-sm ml-2">299</a>
                   </div>
                 </div>                        
@@ -263,7 +259,7 @@ background-repeat: no-repeat;
 
 
 
-
+<%@include file="all_component/footer.jsp" %>
 
     </body>
 </html>
