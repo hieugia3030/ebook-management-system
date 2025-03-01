@@ -24,7 +24,7 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #303f9f;"> 
+<nav class="navbar navbar-expand-lg navbar-dark bg-custom"> 
   <a class="navbar-brand" href="#"><i class="fas fa-home"></i></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -47,8 +47,8 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-light-success my-2 my-sm-0 ml-1" type="submit"><i class="fas fa-cog"></i> Setting</button>
-      <button class="btn btn-light-success my-2 my-sm-0" type="submit">Contact Us</button>
+      <button class="btn btn-light-success my-2 my-sm-0" type="submit"><i class="fas fa-cog"></i> Setting</button>
+      <button class="btn btn-light-success my-2 my-sm-0 ml-1" type="submit"><i class="fa-solid fa-phone"></i> Contact Us</button>
     </form>
   </div>
 </nav>
