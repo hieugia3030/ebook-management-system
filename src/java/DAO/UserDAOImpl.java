@@ -1,53 +1,78 @@
 package DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import entity.User;
+import DB.DBConnect;
+import java.sql.SQLException;
+import java.util.HashSet;
 
 public class UserDAOImpl implements UserDAO {
       
-    private Connection con;
+    private Connection conn;
     
-    // Constructor nhận kết nối
-    public UserDAOImpl(Connection con) {
-        this.con = con;
+    public UserDAOImpl(Connection conn) {
+        this.conn = conn;
     }
 
-    // Kết nối SQL Server
-    public static Connection getConnection() {
-        Connection con = null;
-        try {
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=YourDatabase;encrypt=false";
-            String user = "sa"; // Thay bằng username của bạn
-            String password = "sa"; // 
-
-            con = DriverManager.getConnection(url, user, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return con;
-    }
-
-    // Phương thức đăng ký User
+    @Override
     public boolean userRegister(User us) {
         boolean f = false;
         try {
-            String sql = "INSERT INTO [User] (name, email, phone, password) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(sql);
+            String sql = "INSERT INTO [User] (name, email, phone, password, address, landmark, state, pincode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, us.getName());
             ps.setString(2, us.getEmail());
             ps.setString(3, us.getPhone());
             ps.setString(4, us.getPassword());
+            ps.setString(5, us.getAddress());
+            ps.setString(6, us.getLandmark());
+            ps.setString(7, us.getState());
+            ps.setString(8, us.getPincode());
 
             int i = ps.executeUpdate();
             if (i == 1) {
                 f = true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return f;
+    }
+    
+    @Override
+    public User Login(String email, String password) {
+        User us = null;
+       
+        try {
+           
+            String xSql = "SELECT * FROM [User] WHERE email = ? AND password = ?";
+            PreparedStatement ps = conn.prepareStatement(xSql);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {            
+                us = new User();
+                us.setId(rs.getInt("id"));
+                us.setName(rs.getString("name"));
+                us.setEmail(rs.getString("email"));
+                us.setPhone(rs.getString("phone"));
+                us.setPassword(rs.getString("password"));
+                us.setAddress(rs.getString("address"));  
+                us.setLandmark(rs.getString("landmark"));
+                us.setState(rs.getString("state"));
+                us.setPincode(rs.getString("pincode"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }        
+        return us;
+    }
+
+    public User login(String email, String password) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
