@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBConnect {
-    private static Connection connection;
+    public static Connection connection;
 
 
     public DBConnect() {
@@ -16,7 +16,7 @@ public class DBConnect {
             // cau hinh
             String username = "sa";
             String password = "sa";
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=LmaoXD";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=EBookDB";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
