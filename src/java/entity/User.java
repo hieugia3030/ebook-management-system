@@ -1,9 +1,7 @@
-
 package entity;
 
-
 public class User {
-    
+
     private int id;
     private String name;
     private String email;
@@ -15,11 +13,10 @@ public class User {
     private String state;
     private String pincode;
 
-    public User(){
+    public User() {
         super();
-    }       
-   
-    
+    }
+
     public int getId() {
         return id;
     }
@@ -102,15 +99,11 @@ public class User {
 
     @Override
     public String toString() {
-    return "User [id=" + id + ", name=" + name + ", email=" + email + 
-           ", password=" + password + ", phone=" + phone + 
-           ", address=" + address + ", landmark=" + landmark + 
-           ", city=" + city + ", state=" + state + 
-           ", pincode=" + pincode + "]";
-}
+        return "User [id=" + id + ", name=" + name + ", email=" + email
+                + ", password=" + password + ", phone=" + phone
+                + ", address=" + address + ", landmark=" + landmark
+                + ", city=" + city + ", state=" + state
+                + ", pincode=" + pincode + "]";
+    }
 
-
-   
-    
-    
 }

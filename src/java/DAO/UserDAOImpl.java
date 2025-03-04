@@ -7,7 +7,7 @@ import DB.DBConnect;
 import java.sql.SQLException;
 import java.util.HashSet;
 
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl extends MyDAO implements UserDAO {
       
     private Connection conn;
     
@@ -52,7 +52,7 @@ public class UserDAOImpl implements UserDAO {
             ps.setString(1, email);
             ps.setString(2, password);
             
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             
             if (rs.next()) {            
                 us = new User();
