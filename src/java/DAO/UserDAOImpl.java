@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.HashSet;
 
 public class UserDAOImpl extends MyDAO implements UserDAO {
-      
+
     private Connection conn;
-    
+
     public UserDAOImpl(Connection conn) {
         this.conn = conn;
     }
@@ -40,39 +40,64 @@ public class UserDAOImpl extends MyDAO implements UserDAO {
         }
         return f;
     }
-    
+
     @Override
     public User Login(String email, String password) {
         User us = null;
-       
+
         try {
-           
+
             String xSql = "SELECT * FROM [User] WHERE email = ? AND password = ?";
             PreparedStatement ps = conn.prepareStatement(xSql);
             ps.setString(1, email);
             ps.setString(2, password);
-            
+
             rs = ps.executeQuery();
-            
-            if (rs.next()) {            
+
+            if (rs.next()) {
                 us = new User();
                 us.setId(rs.getInt("id"));
                 us.setName(rs.getString("name"));
                 us.setEmail(rs.getString("email"));
                 us.setPhone(rs.getString("phone"));
                 us.setPassword(rs.getString("password"));
-                us.setAddress(rs.getString("address"));  
+                us.setAddress(rs.getString("address"));
                 us.setLandmark(rs.getString("landmark"));
                 us.setState(rs.getString("state"));
                 us.setPincode(rs.getString("pincode"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }        
+        }
         return us;
     }
 
     public User login(String email, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            xSql = "SELECT * FROM [User] WHERE email = ? AND password = ?";
+            ps = conn.prepareStatement(xSql);
+
+            ps.setString(1, email);
+            ps.setString(2, password);
+            rs = ps.executeQuery();
+            if (rs.next() == false) {
+                return null;
+            } else {
+                User us = new User();
+                us.setId(rs.getInt("id"));
+                us.setName(rs.getString("name"));
+                us.setEmail(rs.getString("email"));
+                us.setPhone(rs.getString("phone"));
+                us.setPassword(rs.getString("password"));
+                us.setAddress(rs.getString("address"));
+                us.setLandmark(rs.getString("landmark"));
+                us.setState(rs.getString("state"));
+                us.setPincode(rs.getString("pincode"));
+                return us;
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 }
