@@ -9,7 +9,6 @@ public class User {
     private String phone;
     private String address;
     private String landmark;
-    private String city;
     private String state;
     private String pincode;
 
@@ -73,13 +72,6 @@ public class User {
         this.landmark = landmark;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     public String getState() {
         return state;
@@ -102,7 +94,7 @@ public class User {
         return "User [id=" + id + ", name=" + name + ", email=" + email
                 + ", password=" + password + ", phone=" + phone
                 + ", address=" + address + ", landmark=" + landmark
-                + ", city=" + city + ", state=" + state
+                + ", state=" + state
                 + ", pincode=" + pincode + "]";
     }
 

@@ -16,7 +16,7 @@ public class DBConnect {
             // cau hinh
             String username = "sa";
             String password = "sa";
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=EBookDB";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=LmaoXD";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {

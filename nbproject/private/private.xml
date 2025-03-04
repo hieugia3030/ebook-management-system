@@ -3,21 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/all_component/style.css</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/all_component/navbar.jsp</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/index.jsp</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/src/java/DAO/UserDAOImpl.java</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/index.html</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/login.jsp</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/src/java/user/sevlet/RegisterServlet.java</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/admin/home.jsp</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/src/java/entity/User.java</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/home.jsp</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/admin/style.css</file>
             <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/register.jsp</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/src/java/user/sevlet/LoginServlet.java</file>
-            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/src/java/DAO/UserDAO.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/admin/orders.jsp</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/login.jsp</file>
             <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/src/java/DB/DBConnect.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/all_component/footer.jsp</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/src/java/user/sevlet/LoginServlet.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/src/java/DAO/UserDAOImpl.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/admin/allCss.jsp</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/all_component/style.css</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/admin/home.jsp</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/admin/footer.jsp</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/admin/navbar.jsp</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/admin/add_books.jsp</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/admin/all_books.jsp</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/src/java/entity/User.java</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/web/index.jsp</file>
+            <file>file:/C:/Users/PC/Documents/GitHub/ebook-management-system/src/java/DAO/UserDAO.java</file>
         </group>
     </open-files>
 </project-private>

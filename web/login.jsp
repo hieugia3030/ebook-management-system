@@ -16,9 +16,9 @@
                     <div class="card-body">
                         <h3 class="text-center">Login</h3>
 
-                        <c:if test="${not empty failedMSG }">
-                            <p class="text-center text-danger">${failedMSG }</p>
-                            <c:remove var="failedMSG" scope="session" />
+                        <c:if test="${not empty failedMsg }">
+                            <p class="text-center text-danger">${failedMsg }</p>
+                            <c:remove var="failedMsg" scope="session" />
                         </c:if>  
 
 
