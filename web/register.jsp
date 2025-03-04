@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EBook: Register</title>
         <%@include file="all_component/allCss.jsp" %>
-    </head>
+    </head> 
     <body style="background-color: #f0f1f2;">
         <%@include file="all_component/navbar.jsp" %>
         <div class="container p-2">

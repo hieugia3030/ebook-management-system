@@ -1,8 +1,9 @@
 package entity;
 
 public class Book {
+
     private int bookId;
-    private String bookname;
+    private String bookName;
     private String author;
     private double price;
     private String bookCategory;
@@ -10,15 +11,21 @@ public class Book {
     private String photo;
     private String userEmail;
 
-    // Default constructor
-    public Book() {
+    // Constructor with all fields (excluding bookId for auto-increment cases)
+    public Book(String bookName, String author, double price, String bookCategory, String status, String photo, String userEmail) {
+        this.bookName = bookName;
+        this.author = author;
+        this.price = price;
+        this.bookCategory = bookCategory;
+        this.status = status;
+        this.photo = photo;
+        this.userEmail = userEmail;
     }
 
-    // Parameterized constructor
-    public Book(int bookId, String bookname, String author, double price, 
-                String bookCategory, String status, String photo, String userEmail) {
+    // Constructor with bookId (if needed)
+    public Book(int bookId, String bookName, String author, double price, String bookCategory, String status, String photo, String userEmail) {
         this.bookId = bookId;
-        this.bookname = bookname;
+        this.bookName = bookName;
         this.author = author;
         this.price = price;
         this.bookCategory = bookCategory;
@@ -36,12 +43,12 @@ public class Book {
         this.bookId = bookId;
     }
 
-    public String getBookname() {
-        return bookname;
+    public String getBookName() {
+        return bookName;
     }
 
-    public void setBookname(String bookname) {
-        this.bookname = bookname;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
     public String getAuthor() {
@@ -90,13 +97,5 @@ public class Book {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
-    }
-
-    // toString() method for debugging
-    @Override
-    public String toString() {
-        return "Book [bookId=" + bookId + ", bookname=" + bookname + ", author=" + author 
-               + ", price=" + price + ", bookCategory=" + bookCategory + ", status=" + status 
-               + ", photo=" + photo + ", userEmail=" + userEmail + "]";
     }
 }
