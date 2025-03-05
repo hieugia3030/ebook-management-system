@@ -15,4 +15,4 @@ CREATE TABLE Book (
     user_email NVARCHAR(255) NOT NULL
 );
 
-DBCC CHECKIDENT ('Book', RESEED, 0);
+SELECT * FROM Book

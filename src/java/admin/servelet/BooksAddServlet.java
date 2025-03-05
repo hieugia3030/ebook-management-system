@@ -21,7 +21,7 @@ import java.io.File;
 
 @WebServlet("/add_book")
 @MultipartConfig
-public class BooksAddServelet extends HttpServlet {
+public class BooksAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
