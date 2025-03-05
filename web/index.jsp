@@ -259,7 +259,7 @@ background-repeat: no-repeat;
 
 
 
-<%@include file="all_component/footer.jsp" %>
 
+    <%@include file="all_component/footer.jsp" %>
     </body>
 </html>
