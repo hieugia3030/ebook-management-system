@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin: Home</title>
-<%@include file="allCss.jsp" %>;
+<%@include file="allCss.jsp" %>
 <style>
 a{
 text-decoration: none;
@@ -20,7 +20,7 @@ color: black;
 </style>
     </head>
     <body>
-<%@include file="navbar.jsp" %>;   
+<%@include file="navbar.jsp" %>
         
 <div class="container">
     <div class="row p-5">
