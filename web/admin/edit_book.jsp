@@ -9,6 +9,9 @@
     </head>
     <body>
         <%@include file="navbar.jsp" %>; 
+        <%
+        int id = Integer.parseInt(request.getParameter("id"));
+        %>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 offset-md-4">
@@ -23,7 +26,7 @@
                                 <p class="text-center text-danger">${errMsg}</p>
                                 <c:remove var="errMsg" scope="session"></c:remove>
                             </c:if>
-                            <form action="../add_book" method="post" enctype="multipart/form-data">
+                            <form action="../edit_book" method="post" enctype="multipart/form-data">
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Book Name*</label>
@@ -72,9 +75,8 @@
 
         </div>
 
-        
-           
-          <%@include file="footer.jsp" %>
+        <div>
+            <%@include file="footer.jsp" %>
+        </div>
     </body>
-
 </html>

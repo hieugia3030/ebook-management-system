@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BookDAO extends MyDAO {
 
-    public boolean insertBook(Book book) {
+    public String insertBook(Book book) {
         xSql = "INSERT INTO Book (bookname, author, price, bookCategory, status, photo, user_email) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(xSql);
@@ -20,9 +20,9 @@ public class BookDAO extends MyDAO {
             ps.setString(7, book.getUserEmail());
 
             int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0; // Returns true if insertion is successful
+            return ""; // Returns empty if insertion is successful
         } catch (SQLException e) {
-            e.printStackTrace();
+            return e.getMessage();
 
         } finally {
             try {
@@ -30,11 +30,10 @@ public class BookDAO extends MyDAO {
                     ps.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                return e.getMessage();
 
             }
         }
-        return false;
     }
 
     public List<Book> getAllBooks() {

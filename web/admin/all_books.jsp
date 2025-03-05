@@ -45,14 +45,14 @@
         for (Book book : books) { %>
                 <tr>
                     <td><%= book.getBookId() %></td>
-                    <td><img src="book/<%= book.getPhoto() %>" width="50"></td>
+                    <td><img src="../book/<%= book.getPhoto() %>" width="50" height="50"></td>
                     <td><%= book.getBookName() %></td>
                     <td><%= book.getAuthor() %></td>
                     <td>$<%= book.getPrice() %></td>
                     <td><%= book.getBookCategory() %></td>
                     <td><%= book.getStatus() %></td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="edit_book.jsp?id=<%=book.getBookId()%>" class="btn btn-sm btn-primary">Edit</a>
                         <a href="#" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>

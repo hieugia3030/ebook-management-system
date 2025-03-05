@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
 
-@WebServlet("/add_books")
+@WebServlet("/add_book")
 @MultipartConfig
 public class BooksAddServelet extends HttpServlet {
 
@@ -36,9 +36,10 @@ public class BooksAddServelet extends HttpServlet {
         String bookCategory = request.getParameter("btype"); // Book category dropdown
         String status = request.getParameter("bstatus"); // Book status dropdown
         Part part = request.getPart("bimg"); // Uploaded file
+
         User user = (User) session.getAttribute("userobj");
         if (user == null) {
-            session.setAttribute("errMsg", "You must be logged in to add a book!");
+            session.setAttribute("failedMsg", "You must be logged in to add a book!");
             response.sendRedirect("login.jsp");
             return;
         }
@@ -56,18 +57,26 @@ public class BooksAddServelet extends HttpServlet {
         }
 
         if (part != null) {
-            String fileName = part.getSubmittedFileName(); // Get uploaded file name
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "book";
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
+            try {
+                String fileName = part.getSubmittedFileName(); // Get uploaded file name
+                String uploadPath = getServletContext().getRealPath("") + File.separator + "book";
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
 
-            String filePath = uploadPath + File.separator + fileName;
-            part.write(filePath);
-            System.out.println("File saved at: " + filePath);
+                String filePath = uploadPath + File.separator + fileName;
+                part.write(filePath);
+                System.out.println("File saved at: " + filePath);
+            } catch (Exception e) {
+                session.setAttribute("errMsg", "Add Book Failed! There is no Image Provided!");
+                response.sendRedirect("admin/add_books.jsp");
+                return;
+            }
         } else {
-            System.out.println("No file uploaded!");
+            session.setAttribute("errMsg", "Add Book Failed! The image is null");
+            response.sendRedirect("admin/add_books.jsp");
+            return;
         }
         // Getting the file name
         String fileName = part.getSubmittedFileName();
@@ -84,13 +93,14 @@ public class BooksAddServelet extends HttpServlet {
         }
 
         BookDAO bookDAO = new BookDAO();
-        boolean success = bookDAO.insertBook(book);
+        String msg = bookDAO.insertBook(book);
 
-        if (success) {
-            session.setAttribute("succMsg", "Added Book Successfully!" + " " + path);
+        if (msg.isBlank()) {
+            session.setAttribute("succMsg", "Added Book Successfully!");
             response.sendRedirect("admin/add_books.jsp");
         } else {
-            session.setAttribute("errMsg", "Add Book Failed!");
+            String errMsg = "Add Book Failed! Insert Book to Database Failed" + msg;
+            session.setAttribute("errMsg", errMsg);
             response.sendRedirect("admin/add_books.jsp");
         }
 
