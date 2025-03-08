@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.sql.SQLException;
 
 @WebServlet("/add_book")
 @MultipartConfig
@@ -33,7 +34,7 @@ public class BooksAddServlet extends HttpServlet {
         String bookName = request.getParameter("bname");
         String author = request.getParameter("author");
         String priceStr = request.getParameter("price");
-        String bookCategory = request.getParameter("btype"); // Book category dropdown
+        int bookCategory = 0; // Book category dropdown
         String status = request.getParameter("bstatus"); // Book status dropdown
         Part part = request.getPart("bimg"); // Uploaded file
 
@@ -50,6 +51,7 @@ public class BooksAddServlet extends HttpServlet {
         double price = 0.0;
         if (priceStr != null && !priceStr.isEmpty()) {
             try {
+                bookCategory = Integer.parseInt(request.getParameter("btype"));
                 price = Double.parseDouble(priceStr);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
@@ -93,17 +95,15 @@ public class BooksAddServlet extends HttpServlet {
         }
 
         BookDAO bookDAO = new BookDAO();
-        String msg = bookDAO.insertBook(book);
-
-        if (msg.isBlank()) {
+        try {
+            bookDAO.insertBook(book);
             session.setAttribute("succMsg", "Added Book Successfully!");
             response.sendRedirect("admin/add_books.jsp");
-        } else {
-            String errMsg = "Add Book Failed! Insert Book to Database Failed" + msg;
+        } catch (SQLException e) {
+            String errMsg = "Add Book Failed! Insert Book to Database Failed" + e.getMessage();
             session.setAttribute("errMsg", errMsg);
             response.sendRedirect("admin/add_books.jsp");
         }
-
     }
 
     private String validate(Book book) {

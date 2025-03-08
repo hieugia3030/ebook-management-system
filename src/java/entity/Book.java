@@ -6,29 +6,29 @@ public class Book {
     private String bookName;
     private String author;
     private double price;
-    private String bookCategory;
+    private int categoryId;
     private String status;
     private String photo;
     private String userEmail;
 
     // Constructor with all fields (excluding bookId for auto-increment cases)
-    public Book(String bookName, String author, double price, String bookCategory, String status, String photo, String userEmail) {
+    public Book(String bookName, String author, double price, int bookCategory, String status, String photo, String userEmail) {
         this.bookName = bookName;
         this.author = author;
         this.price = price;
-        this.bookCategory = bookCategory;
+        this.categoryId = bookCategory;
         this.status = status;
         this.photo = photo;
         this.userEmail = userEmail;
     }
 
     // Constructor with bookId (if needed)
-    public Book(int bookId, String bookName, String author, double price, String bookCategory, String status, String photo, String userEmail) {
+    public Book(int bookId, String bookName, String author, double price, int bookCategory, String status, String photo, String userEmail) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.author = author;
         this.price = price;
-        this.bookCategory = bookCategory;
+        this.categoryId = bookCategory;
         this.status = status;
         this.photo = photo;
         this.userEmail = userEmail;
@@ -67,12 +67,12 @@ public class Book {
         this.price = price;
     }
 
-    public String getBookCategory() {
-        return bookCategory;
+    public int getCategory() {
+        return categoryId;
     }
 
-    public void setBookCategory(String bookCategory) {
-        this.bookCategory = bookCategory;
+    public void setCategory(int bookCategory) {
+        this.categoryId = bookCategory;
     }
 
     public String getStatus() {

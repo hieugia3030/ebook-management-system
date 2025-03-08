@@ -79,7 +79,7 @@ public class EditBookServlet extends HttpServlet {
         String bookName = request.getParameter("bname");
         String author = request.getParameter("author");
         String priceStr = request.getParameter("price");
-        String bookCategory = request.getParameter("btype");
+        int bookCategory = 0; // Book category dropdown
         String status = request.getParameter("bstatus");
         Part part = request.getPart("bimg");
 
@@ -87,6 +87,7 @@ public class EditBookServlet extends HttpServlet {
         double price = 0.0;
         if (priceStr != null && !priceStr.isEmpty()) {
             try {
+                bookCategory = Integer.parseInt(request.getParameter("btype"));
                 price = Double.parseDouble(priceStr);
             } catch (NumberFormatException e) {
                 e.printStackTrace();

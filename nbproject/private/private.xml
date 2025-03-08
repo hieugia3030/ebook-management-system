@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/src/java/admin/servelet/LogoutServlet.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/home.jsp</file>
-            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/admin/login.jsp</file>
-            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/admin/navbar.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/src/java/entity/Book.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/src/java/DAO/BookDAO.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/src/java/admin/servelet/BooksAddServlet.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/products.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/src/java/admin/servelet/DeleteBookServlet.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/index.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/src/java/admin/servelet/EditBookServlet.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/all_component/style.css</file>
         </group>
     </open-files>
 </project-private>

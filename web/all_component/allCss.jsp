@@ -15,4 +15,4 @@
       referrerpolicy="no-referrer" />
 
 
-<link rel="stylesheet" href="all_component/style.css">
+<link rel="stylesheet" type="text/css" href="all_component/style.css">

@@ -7,10 +7,6 @@ public class User {
     private String email;
     private String password;
     private String phone;
-    private String address;
-    private String landmark;
-    private String state;
-    private String pincode;
 
     public User() {
         super();
@@ -56,46 +52,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getLandmark() {
-        return landmark;
-    }
-
-    public void setLandmark(String landmark) {
-        this.landmark = landmark;
-    }
-
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getPincode() {
-        return pincode;
-    }
-
-    public void setPincode(String pincode) {
-        this.pincode = pincode;
-    }
-
     @Override
     public String toString() {
         return "User [id=" + id + ", name=" + name + ", email=" + email
                 + ", password=" + password + ", phone=" + phone
-                + ", address=" + address + ", landmark=" + landmark
-                + ", state=" + state
-                + ", pincode=" + pincode + "]";
+                + "]";
     }
 
 }
