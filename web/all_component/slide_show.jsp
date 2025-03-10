@@ -19,6 +19,10 @@
                 justify-content: center;
                 background-color: #f8f9fa;
             }
+            .slide-content-container{
+                display: flex;
+                justify-content: center;
+            }
             .slide-content {
                 opacity: 0;
                 transform: translateY(50px);
@@ -46,6 +50,7 @@
                 height: 50px;
                 background-color: rgba(0, 0, 0, 0.3);
                 border-radius: 50%;
+                margin: 0px 10px;
             }
             .btn-custom {
                 background-color: #0056b3;
@@ -73,7 +78,7 @@
                 <!-- Slide 1 -->
                 <div class="carousel-item active">
                     <div class="container d-flex align-items-center carousel-content">
-                        <div class="col-md-6">
+                        <div class="col-md-6 slide-content-container">
                             <div class="slide-content">
                                 <h5 class="text-primary">HOT SALE</h5>
                                 <h2 class="fw-bold">The Lord of the Rings Combo</h2>
@@ -90,7 +95,7 @@
                 <!-- Slide 2 -->
                 <div class="carousel-item">
                     <div class="container d-flex align-items-center carousel-content">
-                        <div class="col-md-6">
+                        <div class="col-md-6 slide-content-container">
                             <div class="slide-content">
                                 <h5 class="text-danger">Special Offer</h5>
                                 <h2 class="fw-bold">Harry Potter Books for SALE 40%</h2>

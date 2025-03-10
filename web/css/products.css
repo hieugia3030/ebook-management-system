@@ -1,0 +1,239 @@
+body{
+    overflow-x: hidden;
+}
+
+.sidebar {
+    position: sticky;
+    top: 10px;
+    left: 0;
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-list label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.category-list img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+/* Default checkbox styling */
+input[type="checkbox"] {
+    appearance: none; /* Remove default browser styling */
+    width: 18px;
+    height: 18px;
+    border: 2px solid #999;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Checked checkbox with blue background */
+input[type="checkbox"]:checked {
+    background-color: blue; /* Change to blue */
+    border-color: blue;
+}
+
+/* Custom checkmark */
+input[type="checkbox"]::before {
+    content: "✓"; /* Checkmark */
+    font-size: 14px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* Hidden by default */
+}
+
+/* Show checkmark when checked */
+input[type="checkbox"]:checked::before {
+    display: block;
+    color: white;
+}
+
+#maxPriceInput {
+    width: 80%;
+}
+
+.price-range {
+    margin-top: 15px;
+}
+
+.range-slider {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.price-input {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.price-input input {
+    width: 45%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+/* Slider */
+/* Style the range slider */
+.slider {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    width: 100%;
+    height: 5px;
+    background: #e0e0e0; /* Light gray background */
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s;
+}
+
+/* Track (the background) */
+.slider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    background: #e0e0e0;
+    border-radius: 5px;
+}
+
+/* Thumb (the circle) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #8a4cff; /* Purple color */
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px; /* Adjust positioning */
+    box-shadow: 0px 0px 5px rgba(138, 76, 255, 0.5);
+}
+
+/* Thumb hover effect */
+.slider::-webkit-slider-thumb:hover {
+    background: #6a30e0; /* Darker purple */
+}
+
+/* For Firefox */
+.slider::-moz-range-track {
+    background: #e0e0e0;
+    height: 5px;
+    border-radius: 5px;
+}
+.slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #8a4cff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(138, 76, 255, 0.5);
+}
+
+/* Add spacing between sliders */
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+/* Book Card*/
+.card {
+    height: 200px;
+}
+
+.card.crd-ho {
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Soft shadow */
+    overflow: hidden; /* Ensure content stays inside */
+    background-color: white; /* Clean background */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth animation */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card.crd-ho:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+}
+
+.card.crd-ho .book-title {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.card.crd-ho .book-category {
+    font-size: 12px;
+    color: gray;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.card.crd-ho .book-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: blue; /* Adjust based on theme */
+    text-align: center;
+    margin-top: 5px;
+}
+
+.card.crd-ho .cart-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: white;
+    padding: 5px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.card.crd-ho:hover {
+    transform: translateY(-5px); /* Lift the card slightly */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+}
+
+.crd-ho:hover{
+    background-color: #f7f7f7;
+}
+.card {
+    height: 450px;
+    margin: 10px;
+}
+.img-container {
+    height: 70%;
+}

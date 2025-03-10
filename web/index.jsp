@@ -15,17 +15,14 @@
         <jsp:include page="all_component/categories.jsp" />
         <br>
 
-        <!-- Start Recent Bookt -->
+        <!-- Start Fiction Bookt -->
 
-        <div class="container">
-            <!--            <div class="back-img">
-                            <h2 class="title-text text-center">EBook Store</h2>
-                        </div>-->
+        <div class="container-fluid">
             <h3 class="text-center">Fiction</h3>
-            <div class="row">
+            <div class="row book-list">
                 <div class="col-md-3">
                     <div class="card crd-ho">
-                        <img src="book/jv2.jpg" class="card-img-top" alt="Book Cover">
+                        <img src="book/jv2.jpg" alt="Book Cover">
                         <div class="card-body text-center">
                             <p class="book-category">SÁCH TRUYỆN TIẾNG ANH</p>
                             <h5 class="book-title">Building Single Page Applications in .NET Core 3</h5>
@@ -90,13 +87,15 @@
         <hr>
         <!-- Start New Book -->
 
-        <div class="container">
+        <div class="container-fluid">
             <h3 class="text-center">Dystopian</h3>
             <div class="row">
                 <div class="col-md-3">
                     <div class="card crd-ho">
                         <div class="card-body text-center">
-                            <img alt="" src="book/jv2.jpg" style="width: 150px; height: 200px" class="img-thumblin">
+                            <div class="img-container">
+                                <img alt="" src="book/jv2.jpg" style="width: 150px; height: 200px" class="img-thumblin">
+                            </div>
                             <p>Java Programing</p>
                             <p>Josh Thompsons</p>
                             <p>Categories:New</p>
@@ -112,7 +111,9 @@
                 <div class="col-md-3">
                     <div class="card crd-ho">
                         <div class="card-body text-center">
-                            <img alt="" src="book/jv2.jpg" style="width: 150px; height: 200px" class="img-thumblin">
+                            <div class="img-container">
+                                <img alt="" src="book/jv2.jpg" style="width: 150px; height: 200px" class="img-thumblin">
+                            </div>
                             <p>Java Programing</p>
                             <p>Josh Thompsons</p>
                             <p>Categories:New</p>
@@ -128,7 +129,9 @@
                 <div class="col-md-3">
                     <div class="card crd-ho">
                         <div class="card-body text-center">
-                            <img alt="" src="book/jv2.jpg" style="width: 150px; height: 200px" class="img-thumblin">
+                            <div class="img-container">
+                                <img alt="" src="book/jv2.jpg" style="width: 150px; height: 200px" class="img-thumblin">
+                            </div>
                             <p>Java Programing</p>
                             <p>Josh Thompsons</p>
                             <p>Categories:New</p>
@@ -168,7 +171,7 @@
         <hr>
         <!-- Start Old Book -->
 
-        <div class="container">
+        <div class="container-fluid">
             <h3 class="text-center">Classic</h3>
             <div class="row">
                 <div class="col-md-3">
