@@ -142,6 +142,32 @@ public class BookDAO extends MyDAO {
         return book;
     }
 
+    public List<Book> getTopBooksByCategory(int categoryId, int limit) throws SQLException{
+        List<Book> books = new ArrayList<>();
+        xSql = "SELECT TOP (?) * FROM (SELECT * FROM Book WHERE categoryId = ?) AS a";
+        try {
+            ps = con.prepareStatement(xSql);
+            ps.setInt(1, limit);
+            ps.setInt(2, categoryId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                books.add(new Book(
+                    rs.getInt("bookId"),
+                        rs.getString("bookName"),
+                        rs.getString("author"),
+                        rs.getDouble("price"),
+                        rs.getInt("categoryId"),
+                        rs.getString("status"),
+                        rs.getString("photo"),
+                        rs.getString("user_email")
+                ));
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+        return books;
+    }    
+
     public List<Book> getFilteredBooks(List<Integer> categoryIds, int priceRange) throws SQLException {
         List<Book> books = new ArrayList<>();
         if (categoryIds == null || categoryIds.isEmpty()) {

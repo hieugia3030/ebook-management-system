@@ -10,7 +10,7 @@
         categoryDAO.getAllCategories();
         BookDAO bookDAO = new BookDAO();
         List<Book> books = bookDAO.getAllBooks();
-            CategoryDAO catDao = new CategoryDAO();
+        CategoryDAO catDao = new CategoryDAO();
     %>
 
     <head>
@@ -20,50 +20,65 @@
         <link rel="stylesheet" href="css/products.css" />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
+            function filterBooks() {
+                console.log("Filtering books...");
+
+                let selectedCategories = $(".category-checkbox:checked")
+                        .map(function () {
+                            return $(this).val();
+                        })
+                        .get();
+                let maxPrice = $("#maxPriceInput").val();
+
+                // Use correct format: categoryIds=1&categoryIds=3
+                let params = new URLSearchParams();
+                selectedCategories.forEach(id => params.append("categoryIds", id));
+                params.append("maxPrice", maxPrice);
+
+                $.ajax({
+                    url: "filter-book?" + params.toString(),
+                    type: "GET",
+                    data: $.param({categoryIds: selectedCategories}) + "&maxPrice=" + maxPrice,
+                    success: function (response) {
+                        console.log("Success:", response);
+                        let bookHtml = "";
+                        response.forEach(book => {
+                            bookHtml += '<div class="col-lg-3 col-md-4 col-sm-6 col-12"> <div class="card crd-ho"> <img src="book/' + book.photo + '" alt="' + book.bookName + '" class="img-container"> <p class="book-category">' + book.categoryName + '</p> <h5 class="book-title">' + book.bookName + '</h5> <p class="book-price">$' + book.price.toFixed(2) + '</p> <a href="#" class="cart-icon"> <i class="fa fa-shopping-cart"></i></a></div></div>';
+                        });
+                        console.log(bookHtml);
+
+                        setTimeout(() => {
+                            $("#book-list").html(bookHtml).fadeIn(300);
+                        }, 200);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching books:", error);
+                        alert("Error fetching books." + error.toString());
+                    },
+                    beforeSend: function () {
+                        $("#book-list").fadeOut(200);
+                    }
+                });
+            }
             $(document).ready(function () {
-                function filterBooks() {
-                    console.log("Filtering books...");
-
-                    let selectedCategories = $(".category-checkbox:checked")
-                            .map(function () {
-                                return $(this).val();
-                            })
-                            .get();
-                    let maxPrice = $("#maxPriceInput").val();
-
-                    // Use correct format: categoryIds=1&categoryIds=3
-                    let params = new URLSearchParams();
-                    selectedCategories.forEach(id => params.append("categoryIds", id));
-                    params.append("maxPrice", maxPrice);
-
-                    $.ajax({
-                        url: "filter-book?" + params.toString(),
-                        type: "GET",
-                        data: $.param({categoryIds: selectedCategories}) + "&maxPrice=" + maxPrice,
-                        success: function (response) {
-                            console.log("Success:", response);
-                            let bookHtml = "";
-                            response.forEach(book => {
-                                bookHtml += '<div class="col-lg-3 col-md-4 col-sm-6 col-12"> <div class="card crd-ho"> <img src="book/' + book.photo + '" alt="' + book.bookName + '" class="img-container"> <p class="book-category">' + book.categoryName + '</p> <h5 class="book-title">' + book.bookName + '</h5> <p class="book-price">$' + book.price.toFixed(2) + '</p> <a href="#" class="cart-icon"> <i class="fa fa-shopping-cart"></i></a></div></div>';
-                            });
-                            console.log(bookHtml);
-
-                            setTimeout(() => {
-                                $("#book-list").html(bookHtml).fadeIn(300); 
-                            }, 200);
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("Error fetching books:", error);
-                            alert("Error fetching books." + error.toString());
-                        },
-                        beforeSend: function () {
-                            $("#book-list").fadeOut(200); 
-                        }
-                    });
-                }
-
                 $(".category-checkbox").change(filterBooks); // When category is checked
                 $("#maxPrice, #maxPriceInput").on("input", filterBooks); // When price slider changes
+            });
+            document.addEventListener("DOMContentLoaded", function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                const categoryId = urlParams.get("categoryId");
+
+                if (categoryId) {
+                    // Find the checkbox with the corresponding categoryId and check it
+                    let checkbox = document.querySelector('input[type="checkbox"][value="' + categoryId + '"]');
+                    if (checkbox) {
+                        checkbox.checked = true;
+                        checkbox.dispatchEvent(new Event("input"));
+                        filterBooks();
+                    } else {
+                        console.log('input[type="checkbox"][value="' + categoryId + '"]")');
+                    }
+                }
             });
         </script>
     </head>
@@ -97,12 +112,12 @@
                                 <b>Price range</b>
                             </label>
                             <div class="slider-container">
-                                <input type="range" min="5" max="15" value="5"
+                                <input type="range" min="5" max="20" value="20"
                                        class="slider" id="maxPrice">
                                 <div>
                                     <label for="maxPrice">Up To</label>
                                     <p style="color: green; font-weight: bold">
-                                        <input type="number" id="maxPriceInput" value="5"
+                                        <input type="number" id="maxPriceInput" value="20"
                                                style="text-align: right;"> $
                                     </p>
                                 </div>

@@ -15,24 +15,19 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Invalidate the current session
+        // Invalidate session
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
 
-        // Remove "Remember Me" cookies (if they exist)
-        Cookie emailCookie = new Cookie("user_email", "");
-        Cookie passwordCookie = new Cookie("user_password", "");
-        emailCookie.setMaxAge(0);
-        passwordCookie.setMaxAge(0);
-        emailCookie.setPath("/");  // Ensure it applies to the entire app
-        passwordCookie.setPath("/");
+        // Remove user_data cookie
+        Cookie cookie = new Cookie("user_data", "");
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
 
-        response.addCookie(emailCookie);
-        response.addCookie(passwordCookie);
-
-        // Redirect to login page
+        // Redirect to home page
         response.sendRedirect("login.jsp");
     }
 

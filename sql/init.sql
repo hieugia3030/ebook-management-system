@@ -137,3 +137,5 @@ VALUES
 ('Make Your Bed', 'William H. McRaven', 10.50, 6, 'Available', 'make_your_bed.jpg', 'admin2@example.com'),
 ('Essentialism: The Disciplined Pursuit of Less', 'Greg McKeown', 13.75, 6, 'Available', 'essentialism.jpg', 'admin1@example.com'),
 ('Atomic Habits', 'James Clear', 13.95, 6, 'Available', 'atomic_habits.jpg', 'admin2@example.com');
+
+SELECT TOP 3 * FROM (SELECT * FROM Book WHERE categoryId = 1) AS a

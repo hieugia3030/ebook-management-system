@@ -2,6 +2,7 @@ package user.sevlet;
 
 import entity.User;
 import DAO.UserDAO;
+import com.google.gson.Gson;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.net.URLEncoder;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -32,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 
                 // Store in cookies if "Remember Me" is checked
                 if ("on".equals(rememberMe)) {
-                    saveUserCookies(req, resp, email);
+                    saveUserCookies(req, resp, user);
                 }
 
                 // Redirect admin to admin panel
@@ -53,15 +55,20 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    private void saveUserCookies(HttpServletRequest req, HttpServletResponse resp, String email) {
-        Cookie emailCookie = new Cookie("user_email", email);
-        emailCookie.setMaxAge(7 * 24 * 60 * 60); // 7 days
-        emailCookie.setHttpOnly(true);
+    private void saveUserCookies(HttpServletRequest req, HttpServletResponse resp, User user) throws IOException {
+        Gson gson = new Gson();
+        String userJson = gson.toJson(user);
+        String encodedUserJson = URLEncoder.encode(userJson, "UTF-8");
+
+        Cookie userCookie = new Cookie("user_data", encodedUserJson);
+        userCookie.setMaxAge(7 * 24 * 60 * 60); // 7 days
+        userCookie.setHttpOnly(true);
+        userCookie.setPath("/");
 
         if (!req.getServerName().equals("localhost")) {
-            emailCookie.setSecure(true);
+            userCookie.setSecure(true);
         }
 
-        resp.addCookie(emailCookie);
+        resp.addCookie(userCookie);
     }
 }

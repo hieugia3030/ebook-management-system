@@ -1,4 +1,31 @@
 <div class="container-fluid" style="height: 10px;background-color: #303f9f"></div>
+<%@page import="java.net.URLDecoder" %>
+<%@page import="java.nio.charset.StandardCharsets" %>
+<%@page import="com.google.gson.Gson" %>
+<%@page import="entity.*" %>
+<%
+    User userobj = (User) session.getAttribute("userobj");
+
+    // If session expired, check cookies
+    if (userobj == null) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("user_data".equals(cookie.getName())) {
+                    String decodedUserJson = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8);
+                    Gson gson = new Gson();
+                    userobj = gson.fromJson(decodedUserJson, User.class);
+                    
+                    // Restore user session
+                    if (userobj != null) {
+                        session.setAttribute("userobj", userobj);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+%>
 
 <div class="container-fluid p-3 bg-light">
     <div class="row"> 
@@ -51,7 +78,7 @@
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
-    <a class="navbar-brand" href="#"><i class="fas fa-home"></i></a>
+    <a class="navbar-brand" href="index.jsp"><i class="fas fa-home"></i></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -69,10 +96,12 @@
                     <%
                         // Sample categories list, replace this with database query
                         String[] cats = {"Fiction", "Dystopian", "Classic", "History", "Psychology", "Self-Help"};
+                        int i = 0;
                         for (String category : cats) {
                     %>
-                    <a class="dropdown-item" href="category.jsp?name=<%= category %>"><%= category %></a>
+                    <a class="dropdown-item" href="products.jsp?categoryId=<%= i+1 %>"><%= category %></a>
                     <%
+                        i++;
                         }
                     %>
                 </div>
