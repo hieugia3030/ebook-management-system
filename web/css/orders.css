@@ -1,0 +1,135 @@
+    body {
+        background-color: #f7f8fa;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .order-card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-left: 5px solid #d32f2f;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .order-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .status {
+        font-weight: bold;
+        padding: 6px 12px;
+        border-radius: 5px;
+    }
+
+    .status-delivered {
+        background-color: #00c853;
+        color: white;
+    }
+
+    .status-pending {
+        background-color: #ffab00;
+        color: white;
+    }
+
+    .status-cancelled {
+        background-color: #ff5252;
+        color: white;
+    }
+
+    .order-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .order-item:last-child {
+        border-bottom: none;
+    }
+
+    .order-item img {
+        width: 80px;
+        height: 80px;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+
+    .order-details {
+        margin-left: 15px;
+        flex-grow: 1;
+    }
+
+    .order-details h5 {
+        margin: 0;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .order-details p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #777;
+    }
+
+    .price {
+        font-size: 18px;
+        color: #d32f2f;
+        font-weight: bold;
+    }
+
+    .order-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    .btn-custom {
+        background-color: #d32f2f;
+        color: white;
+        border-radius: 5px;
+        padding: 8px 15px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn-custom:hover {
+        background-color: #b71c1c;
+    }
+
+    .order-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-top: 2px solid #ddd;
+        margin-top: 10px;
+    }
+    
+    .order-total {
+        font-size: 1.4rem; 
+        font-weight: bold;
+        color: #ff6f00; 
+    }
+    
+    .total-amount {
+        font-size: 1.6rem; 
+        color: #d32f2f;
+    }
+    

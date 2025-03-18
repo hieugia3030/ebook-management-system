@@ -32,14 +32,15 @@
         <div class="col-md-3 text-success"> 
             <h3> <i class="fas fa-book"></i> Ebooks</h3> 
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 navbar-buttons">
             <c:if test="${not empty userobj}">
+                <a href="orders.jsp" class="btn btn-info"><i class="fas fa-box"></i> Orders</a>
                 <a href="cart.jsp" class="btn btn-warning"><i class="fas fa-shopping-cart"></i> Cart</a>
                 <a href="#" class ="btn btn-success"><i class="fas fa-user"></i> ${userobj.getName()}</a>
                 <a href="#" class="btn btn-primary text-white" data-toggle="modal" data-target="#logoutModal">

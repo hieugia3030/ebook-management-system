@@ -8,12 +8,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>EBook: Register</title>
         <%@include file="all_component/allCss.jsp" %>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <link rel="stylesheet" href="css/login.css">
         <style>
             .card {
                 width: 100%;
                 max-width: 400px;
+                height: 90%;
             }
             .input-group-text {
                 background: transparent;
@@ -29,8 +29,8 @@
             .toggle-password:hover {
                 color: #333;
             }
-
         </style>
+
     </head> 
     <body style="background-color: #f0f1f2;">
         <%@include file="all_component/navbar.jsp" %>

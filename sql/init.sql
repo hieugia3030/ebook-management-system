@@ -40,6 +40,24 @@ CREATE TABLE Cart (
     FOREIGN KEY (bookId) REFERENCES Book(bookId) ON DELETE CASCADE
 );
 
+CREATE TABLE Orders (
+    orderId INT IDENTITY(1,1) PRIMARY KEY,
+    userId INT NOT NULL,
+    orderDate DATETIME DEFAULT GETDATE(),
+    [status] NVARCHAR(50) DEFAULT 'Pending', -- Possible values: Pending, Shipped, Cancelled
+    FOREIGN KEY (userId) REFERENCES [User](id) ON DELETE CASCADE
+);
+
+CREATE TABLE OrderItems (
+    orderItemId INT IDENTITY(1,1) PRIMARY KEY,
+    orderId INT NOT NULL,
+    bookId INT NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (orderId) REFERENCES Orders(orderId) ON DELETE CASCADE,
+    FOREIGN KEY (bookId) REFERENCES Book(bookId) ON DELETE CASCADE
+);
+
+
 INSERT INTO [User] values('Admin', 'admin@gmail.com', 'admin', '0398333162')
 DBCC CHECKIDENT ('Book', RESEED, 0);
 
@@ -138,4 +156,4 @@ VALUES
 ('Essentialism: The Disciplined Pursuit of Less', 'Greg McKeown', 13.75, 6, 'Available', 'essentialism.jpg', 'admin1@example.com'),
 ('Atomic Habits', 'James Clear', 13.95, 6, 'Available', 'atomic_habits.jpg', 'admin2@example.com');
 
-SELECT TOP 3 * FROM (SELECT * FROM Book WHERE categoryId = 1) AS a
+select * from Orders

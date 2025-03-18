@@ -129,7 +129,7 @@
                     <h2>Books</h2>
                     <div class="row" id="book-list">
 
-                        <% for (Book book : books) { int categoryId=book.getCategory();
+                        <% for (Book book : books) { int categoryId=book.getCategoryId();
                             String
                             category=catDao.getCategoryById(categoryId).getCategoryName();
                         %>

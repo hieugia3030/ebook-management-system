@@ -14,7 +14,7 @@ public class BookDAO extends MyDAO {
             ps.setString(1, book.getBookName());
             ps.setString(2, book.getAuthor());
             ps.setDouble(3, book.getPrice());
-            ps.setInt(4, book.getCategory());
+            ps.setInt(4, book.getCategoryId());
             ps.setString(5, book.getStatus());
             ps.setString(6, book.getPhoto());
             ps.setString(7, book.getUserEmail());
@@ -216,7 +216,7 @@ public class BookDAO extends MyDAO {
             ps.setString(1, book.getBookName());
             ps.setString(2, book.getAuthor());
             ps.setDouble(3, book.getPrice());
-            ps.setInt(4, book.getCategory()); // Fixed
+            ps.setInt(4, book.getCategoryId()); // Fixed
             ps.setString(5, book.getStatus());
             ps.setString(6, book.getPhoto());
             ps.setInt(7, book.getBookId());

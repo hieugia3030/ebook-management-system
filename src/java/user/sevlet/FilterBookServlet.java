@@ -66,8 +66,8 @@ public class FilterBookServlet extends HttpServlet {
         List<BookResponse> list = new ArrayList<>();
         CategoryDAO catDAO = new CategoryDAO();
         for (Book book : books) {
-            String category = catDAO.getCategoryById(book.getCategory()).getCategoryName();
-            BookResponse res = new BookResponse(book.getBookId(), book.getBookName(), book.getAuthor(), book.getPrice(), book.getCategory(), category, book.getStatus(), book.getPhoto(), book.getUserEmail());
+            String category = catDAO.getCategoryById(book.getCategoryId()).getCategoryName();
+            BookResponse res = new BookResponse(book.getBookId(), book.getBookName(), book.getAuthor(), book.getPrice(), book.getCategoryId(), category, book.getStatus(), book.getPhoto(), book.getUserEmail());
             list.add(res);
         }
         return list;

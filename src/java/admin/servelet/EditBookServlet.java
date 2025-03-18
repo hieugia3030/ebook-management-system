@@ -49,6 +49,7 @@ public class EditBookServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        String error = "";
 
         // Check if user is logged in
         User user = (User) session.getAttribute("userobj");
@@ -90,6 +91,7 @@ public class EditBookServlet extends HttpServlet {
                 bookCategory = Integer.parseInt(request.getParameter("btype"));
                 price = Double.parseDouble(priceStr);
             } catch (NumberFormatException e) {
+                error = e.getMessage();
                 e.printStackTrace();
             }
         }
@@ -115,7 +117,7 @@ public class EditBookServlet extends HttpServlet {
         // Validate input
         String validationError = validate(book);
         if (validationError != null) {
-            session.setAttribute("errMsg", validationError);
+            session.setAttribute("errMsg", error);
             response.sendRedirect("admin/edit_book.jsp");
             return;
         }

@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.io.*, java.util.*" %>
 <%@page import="javax.servlet.*, javax.servlet.http.*" %>
-<%@page import="DAO.BookDAO" %>
-<%@page import="entity.Book" %>
+<%@page import="DAO.*" %>
+<%@page import="entity.*" %>
 
 <!DOCTYPE html>
 <html>
@@ -33,6 +33,7 @@
 
         <%
             Book book = (Book) session.getAttribute("editBook");
+            CategoryDAO catDao = new CategoryDAO();
 
             if (book == null) {
                 response.sendRedirect("all_books.jsp?errMsg=No book selected for editing");
@@ -70,8 +71,20 @@
                                 <div class="form-group">
                                     <label>Book Categories</label>
                                     <select name="btype" class="form-control">
-                                        <option value="New" <%= book.getBookCategory().equals("New") ? "selected" : "" %>>New Book</option>
-                                    </select>
+                                    <option value="" disabled selected>Select a Category</option> <!-- Default Option -->
+
+                                    <% 
+                                    // Get all available categories
+                                    List<Category> categories = catDao.getAllCategories(); 
+                                    for (Category category : categories) {
+                                        String categoryName = category.getCategoryName();
+                                        int id = category.getCategoryId();
+                                        String selected = (category.getCategoryId() == book.getCategoryId()) ? "selected" : "";
+                                    %>
+                                        <option value="<%= id %>" <%= selected %>><%= categoryName %></option>
+                                    <% } %>
+                                </select>
+
                                 </div>
 
                                 <div class="form-group">

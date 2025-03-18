@@ -67,7 +67,7 @@ public class Book {
         this.price = price;
     }
 
-    public int getCategory() {
+    public int getCategoryId() {
         return categoryId;
     }
 

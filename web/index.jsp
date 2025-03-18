@@ -16,7 +16,27 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ebook: Index</title>
         <%@include file="all_component/allCss.jsp" %>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".addToCartBtn").click(function () {
+                    var bookId = $(this).data("book-id");
 
+                    $.ajax({
+                        type: "POST",
+                        url: "add-to-cart",
+                        data: {bookId: bookId},
+                        dataType: "json",
+                        success: function (response) {
+                            alert(response.message); // Show success message
+                        },
+                        error: function () {
+                            alert("Error adding item to cart.");
+                        }
+                    });
+                });
+            });
+        </script>
     </head>
 
     <body style="background-color: #f7f7f7;">
@@ -38,13 +58,9 @@
                         <div class="card-body">
                             <h5 class="book-title"><%= book.getBookName() %></h5>
                             <p class="book-price"><%= book.getPrice() %>$</p>
-                            <form action="add-to-cart" method="post">
-                                <input type="hidden" name="productId" value="<%= book.getBookId() %>" />
-                                <button type="submit" class="cart-btn">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </button>
-                            </form>
-
+                            <button class="addToCartBtn hover-btn btn btn-outline-primary" id="addToCartBtn-<%= book.getBookId()%>" data-book-id="<%= book.getBookId() %>">
+                            Add to Cart
+                            </button>
                         </div>
                     </div>    
                 </div>
@@ -52,7 +68,7 @@
             </div>
             <br>
             <div class="text-center mt-3">
-                <a href="products.jsp?categoryId=1" class="btn btn-danger btn-sm px-4 py-2 rounded-pill shadow-sm">
+                <a href="products.jsp?categoryId=1" class="hover-btn btn btn-danger btn-sm px-4 py-2 rounded-pill shadow-sm">
                     <i class="fa fa-book-open me-2"></i> View All
                 </a>
             </div>
@@ -72,13 +88,9 @@
                         <div class="card-body text-center">
                             <h5 class="book-title"><%= book.getBookName() %></h5>
                             <p class="book-price"><%= book.getPrice() %>$</p>
-                            <form action="add-to-cart" method="post">
-                                <input type="hidden" name="productId" value="<%= book.getBookId() %>" />
-                                <button type="submit" class="cart-btn">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </button>
-                            </form>
-
+                            <button class="addToCartBtn hover-btn btn btn-outline-primary" id="addToCartBtn-<%= book.getBookId()%>" data-book-id="<%= book.getBookId() %>">
+                            Add to Cart
+                            </button>
                         </div>
                     </div>    
                 </div>
@@ -106,13 +118,9 @@
                         <div class="card-body text-center">
                             <h5 class="book-title"><%= book.getBookName() %></h5>
                             <p class="book-price"><%= book.getPrice() %>$</p>
-                            <form action="add-to-cart" method="post">
-                                <input type="hidden" name="productId" value="<%= book.getBookId() %>" />
-                                <button type="submit" class="cart-btn">
-                                    <i class="fas fa-cart-plus"></i> Add to Cart
-                                </button>
-                            </form>
-
+                            <button class="addToCartBtn hover-btn btn btn-outline-primary" id="addToCartBtn-<%= book.getBookId()%>" data-book-id="<%= book.getBookId() %>">
+                            Add to Cart
+                            </button>
                         </div>
                     </div>    
                 </div>
@@ -120,7 +128,7 @@
             </div>
             <br>
             <div class="text-center mt-3">
-                <a href="products.jsp?categoryId=3" class="btn btn-danger btn-sm px-4 py-2 rounded-pill shadow-sm">
+                <a href="products.jsp?categoryId=3" class="btn hover-btn btn-danger btn-sm px-4 py-2 rounded-pill shadow-sm addTo">
                     <i class="fa fa-book-open me-2"></i> View All
                 </a>
             </div>

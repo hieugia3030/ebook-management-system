@@ -24,7 +24,7 @@
 
         <div class="container">
             <div class="row p-5">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <a href="add_books.jsp">
                         <div class="card">
                             <div class="card-body text-center">
@@ -37,7 +37,7 @@
                 </div>
 
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <a href="all_books.jsp">
                         <div class="card">
                             <div class="card-body text-center">
@@ -50,7 +50,7 @@
                 </div>
 
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <a href="orders.jsp">
                         <div class="card">
                             <div class="card-body text-center">
@@ -60,18 +60,7 @@
                             </div>
                         </div> 
                     </a>
-                </div>
-
-
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <i class="fas fa-sign-out fa-3x text-primary"></i><br>  
-                            <h4>Logout</h4>
-                            --------------
-                        </div>
-                    </div> 
-                </div>       
+                </div>     
             </div>
 
         </div>

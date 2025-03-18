@@ -12,18 +12,14 @@ public class CartItem {
     private int id;
     private int userId;
     private int bookId;
-    private String bookname;
-    private String author;
     private double price;
     private int quantity;
 
     // Constructor
-    public CartItem(int id, int userId, int bookId, String bookname, String author, double price, int quantity) {
+    public CartItem(int id, int userId, int bookId, double price, int quantity) {
         this.id = id;
         this.userId = userId;
         this.bookId = bookId;
-        this.bookname = bookname;
-        this.author = author;
         this.price = price;
         this.quantity = quantity;
     }
@@ -56,23 +52,7 @@ public class CartItem {
     public void setBookId(int bookId) {
         this.bookId = bookId;
     }
-
-    public String getBookname() {
-        return bookname;
-    }
-
-    public void setBookname(String bookname) {
-        this.bookname = bookname;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
+    
     public double getPrice() {
         return price;
     }

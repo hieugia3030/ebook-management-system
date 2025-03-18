@@ -31,10 +31,20 @@ public class CartDAO extends MyDAO {
         }
     }
 
+    public void clearCart(int userId) throws SQLException {
+        xSql = "DELETE FROM Cart WHERE userId = ?";
+        try {
+            ps = con.prepareStatement(xSql);
+            ps.setInt(1, userId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
     public List<CartItem> getCartItems(int userId) throws SQLException {
         List<CartItem> cartItems = new ArrayList<>();
-        xSql = "SELECT b.bookId, b.bookname, b.author, b.price, c.quantity "
-                + "FROM Cart c JOIN Book b ON c.bookId = b.bookId WHERE c.userId = ?";
+        xSql = "SELECT * FROM Cart c WHERE c.userId = ?";
 
         try {
             ps = con.prepareStatement(xSql);
@@ -43,9 +53,6 @@ public class CartDAO extends MyDAO {
             while (rs.next()) {
                 CartItem item = new CartItem();
                 item.setBookId(rs.getInt("bookId"));
-                item.setBookname(rs.getString("bookname"));
-                item.setAuthor(rs.getString("author"));
-                item.setPrice(rs.getBigDecimal("price").doubleValue());
                 item.setQuantity(rs.getInt("quantity"));
                 item.setUserId(userId);
                 cartItems.add(item);
@@ -100,6 +107,41 @@ public class CartDAO extends MyDAO {
             throw e;
         }
         return 0;
+    }
+
+    public CartItem getCartItem(int userId, int bookId) throws SQLException {
+        CartItem item = null;
+        String sql = "SELECT * FROM Cart WHERE userId = ? AND bookId = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, userId);
+            ps.setInt(2, bookId);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                item = new CartItem();
+                item.setUserId(userId);
+                item.setBookId(bookId);
+                item.setQuantity(rs.getInt("quantity"));
+            }
+        } catch (SQLException e) {
+            throw e;
+        }
+        return item;
+    }
+
+    public boolean removeItem(int userId, int bookId) throws SQLException {
+        String sql = "DELETE FROM Cart WHERE userId = ? AND bookId = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, userId);
+            ps.setInt(2, bookId);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw e;
+        }
     }
 
 }

@@ -1,17 +1,44 @@
 <div class="container-fluid" style="height: 10px;background-color: #303f9f"></div>
+<%@page import="java.net.URLDecoder" %>
+<%@page import="java.nio.charset.StandardCharsets" %>
+<%@page import="com.google.gson.Gson" %>
+<%@page import="entity.*" %>
+<%
+    User userobj = (User) session.getAttribute("userobj");
+
+    // If session expired, check cookies
+    if (userobj == null) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("user_data".equals(cookie.getName())) {
+                    String decodedUserJson = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8);
+                    Gson gson = new Gson();
+                    userobj = gson.fromJson(decodedUserJson, User.class);
+                    
+                    // Restore user session
+                    if (userobj != null) {
+                        session.setAttribute("userobj", userobj);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+%>
 
 <div class="container-fluid p-3 bg-light">
     <div class="row"> 
         <div class="col-md-3 text-success"> 
             <h3> <i class="fas fa-book"></i> Ebooks</h3> 
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 navbar-buttons">
             <c:if test="${not empty userobj}">
                 <a href="#" class ="btn btn-success"><i class="fas fa-user"></i> ${userobj.getName()}</a>
                 <a href="#" class="btn btn-primary text-white" data-toggle="modal" data-target="#logoutModal">
@@ -49,18 +76,20 @@
     </div>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-custom"> 
-    <a class="navbar-brand" href="#"><i class="fas fa-home"></i></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-custom">
+    <a class="navbar-brand" href="index.jsp"><i class="fas fa-home"></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="home.jsp">Home <span class="sr-only">(current)</span></a>
-            </li>    
-            </form>
+            <li class="nav-item">
+                <a class="nav-link" href="home.jsp">Home</a>
+            </li>
+        </ul>
     </div>
 </nav>
+
 
