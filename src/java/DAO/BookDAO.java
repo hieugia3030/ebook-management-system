@@ -4,6 +4,7 @@ import entity.Book;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BookDAO extends MyDAO {
 
@@ -48,8 +49,7 @@ public class BookDAO extends MyDAO {
                         rs.getInt("categoryId"),
                         rs.getString("status"),
                         rs.getString("photo"),
-                        rs.getString("user_email")
-                );
+                        rs.getString("user_email"));
                 books.add(book);
             }
         } catch (SQLException e) {
@@ -68,7 +68,7 @@ public class BookDAO extends MyDAO {
         }
         return books;
     }
-    
+
     public List<Book> getAllBooksWithMaxPrice(int maxPrice) throws SQLException {
         List<Book> books = new ArrayList<>();
         xSql = "SELECT * FROM Book WHERE price < ?";
@@ -85,8 +85,7 @@ public class BookDAO extends MyDAO {
                         rs.getInt("categoryId"),
                         rs.getString("status"),
                         rs.getString("photo"),
-                        rs.getString("user_email")
-                );
+                        rs.getString("user_email"));
                 books.add(book);
             }
         } catch (SQLException e) {
@@ -122,27 +121,15 @@ public class BookDAO extends MyDAO {
                         rs.getInt("categoryId"),
                         rs.getString("status"),
                         rs.getString("photo"),
-                        rs.getString("user_email")
-                );
+                        rs.getString("user_email"));
             }
         } catch (SQLException e) {
             throw e;
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                throw e;
-            }
         }
         return book;
     }
 
-    public List<Book> getTopBooksByCategory(int categoryId, int limit) throws SQLException{
+    public List<Book> getTopBooksByCategory(int categoryId, int limit) throws SQLException {
         List<Book> books = new ArrayList<>();
         xSql = "SELECT TOP (?) * FROM (SELECT * FROM Book WHERE categoryId = ?) AS a";
         try {
@@ -152,42 +139,62 @@ public class BookDAO extends MyDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 books.add(new Book(
-                    rs.getInt("bookId"),
+                        rs.getInt("bookId"),
                         rs.getString("bookName"),
                         rs.getString("author"),
                         rs.getDouble("price"),
                         rs.getInt("categoryId"),
                         rs.getString("status"),
                         rs.getString("photo"),
-                        rs.getString("user_email")
-                ));
+                        rs.getString("user_email")));
             }
         } catch (SQLException e) {
             throw e;
         }
         return books;
-    }    
+    }
 
-    public List<Book> getFilteredBooks(List<Integer> categoryIds, int priceRange) throws SQLException {
+    public List<Book> getFilteredBooks(List<Integer> categoryIds, int priceRange, String searchQuery)
+            throws SQLException {
         List<Book> books = new ArrayList<>();
-        if (categoryIds == null || categoryIds.isEmpty()) {
-            return books;
+
+        // Start SQL query
+        StringBuilder sqlQuery = new StringBuilder("SELECT * FROM Book WHERE price <= ?");
+
+        // Add category filter if categories are selected
+        if (categoryIds != null && !categoryIds.isEmpty()) {
+            sqlQuery.append(" AND categoryId IN (")
+                    .append(categoryIds.stream().map(id -> "?").collect(Collectors.joining(", ")))
+                    .append(")");
         }
 
-        String sqlQuery = "SELECT * FROM Book WHERE categoryId IN (";
-        for (int i = 0; i < categoryIds.size(); i++) {
-            sqlQuery += "" + categoryIds.get(i);
-            if(i != categoryIds.size() - 1){
-                sqlQuery += ", ";
-            }
+        // Add search filter for book name or author
+        if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+            sqlQuery.append(" AND (LOWER(bookName) LIKE ? OR LOWER(author) LIKE ?)");
         }
-        sqlQuery += ")";
-        
-        sqlQuery += " AND price < " + priceRange;
-        xSql = sqlQuery;
 
         try {
-            ps = con.prepareStatement(xSql);
+            ps = con.prepareStatement(sqlQuery.toString());
+
+            int index = 1;
+
+            // Set price filter
+            ps.setInt(index++, priceRange);
+
+            // Set category IDs dynamically
+            if (categoryIds != null && !categoryIds.isEmpty()) {
+                for (Integer categoryId : categoryIds) {
+                    ps.setInt(index++, categoryId);
+                }
+            }
+
+            // Set case-insensitive search query if present
+            if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+                String likeQuery = "%" + searchQuery.trim().toLowerCase() + "%";
+                ps.setString(index++, likeQuery);
+                ps.setString(index++, likeQuery);
+            }
+
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -199,13 +206,14 @@ public class BookDAO extends MyDAO {
                         rs.getInt("categoryId"),
                         rs.getString("status"),
                         rs.getString("photo"),
-                        rs.getString("user_email")
-                ));
+                        rs.getString("user_email")));
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
             throw e;
         }
+
         return books;
     }
 

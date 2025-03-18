@@ -7,79 +7,153 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin: All Orders</title>
-    <%@include file="allCss.jsp" %> <!-- Include the common CSS file -->
-    <script>
-        // Function to confirm and send request to update order status
-        function updateOrderStatus(orderId, action) {
-            if (confirm("Are you sure you want to " + action + " this order?")) {
-                var form = document.createElement("form");
-                form.method = "POST";
-                form.action = action === 'accept' ? "../accept_order" : "../cancel_order";  // Handle action routes
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin: All Orders</title>
+        <%@include file="allCss.jsp" %> <!-- Include the common CSS file -->
+        <link rel="stylesheet" href="orders.css">
+    </head>
 
-                var input = document.createElement("input");
-                input.type = "hidden";
-                input.name = "orderId";
-                input.value = orderId;
-                form.appendChild(input);
+    <body>
+        <%@include file="navbar.jsp" %> 
 
-                document.body.appendChild(form);
-                form.submit();
-            }
-        }
-    </script>
-</head>
+        <%
+        OrderDAO orderDAO = new OrderDAO();
+        OrderItemDAO orderItemDAO = new OrderItemDAO();
+        BookDAO bookDAO = new BookDAO();
 
-<body>
-    <%@include file="navbar.jsp" %>  <!-- Include navigation bar -->
 
-    <div class="container mt-5">
-        <h3 class="text-center">Manage Orders</h3>
+        List<OrderRes> orders = orderDAO.getAllOrderRes();
+        %>
 
-        <c:if test="${not empty succMsg}">
-            <p class="text-center text-success">${succMsg}</p>
-            <c:remove var="succMsg" scope="session"/>
-        </c:if>
+        <div class="container-fluid mt-5">
+            <h3 class="text-center">Manage Orders</h3>
 
-        <c:if test="${not empty errMsg}">
-            <p class="text-center text-danger">${errMsg}</p>
-            <c:remove var="errMsg" scope="session"/>
-        </c:if>
-
-        <table class="table table-striped">
-            <thead class="bg-primary text-white">
-                <tr>
-                    <th scope="col">Order ID</th>
-                    <th scope="col">Customer</th>
-                    <th scope="col">Order Date</th>
-                    <th scope="col">Total Price</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="order" items="${orders}">
+            <table class="table table-striped">
+                <thead class="bg-primary text-white">
                     <tr>
-                        <td>${order.orderId}</td>
-                        <td>${order.customerName}</td>
-                        <td>${order.orderDate}</td> <!-- Use JSTL to output order date -->
-                        <td>$${order.totalPrice}</td>
-                        <td>${order.status}</td>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Order Date</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (OrderRes order : orders) { %>
+                    <tr id="order-<%= order.getOrderId() %>">
+                        <td><%= order.getOrderId() %></td>
+                        <td><%= order.getCustomerName() %></td>
+                        <td><%= order.getOrderDate() %></td>
+                        <td>$<%= order.getTotalPrice() %></td>
+                        <td id="status-<%= order.getOrderId() %>"><strong><%= order.getStatus() %></strong></td>
                         <td>
-                            <button onclick="updateOrderStatus(${order.orderId}, 'accept')" class="btn btn-sm btn-success">Accept</button>
-                            <button onclick="updateOrderStatus(${order.orderId}, 'cancel')" class="btn btn-sm btn-danger">Cancel</button>
+                            <!-- Toggle Button for Details -->
+                            <button class="btn btn-info" data-toggle="collapse" data-target="#order<%= order.getOrderId() %>">
+                                View Items
+                            </button>
+                        </td>
+                        <td class="action-buttons">
+                            <%-- <% if (order.getStatus().equals("Pending")) { %> --%>
+                            <button class="icon-btn accept" data-tooltip="Accept Order"
+                                    onclick="updateOrderStatus(<%= order.getOrderId() %>, 'Success')">
+                                <i class="fas fa-check-circle"></i>
+                            </button>
+
+                            <button class="icon-btn cancel" data-tooltip="Cancel Order"
+                                    onclick="updateOrderStatus(<%= order.getOrderId() %>, 'Cancelled')">
+                                <i class="fas fa-times-circle"></i>
+                            </button>
+                            <%-- <% } else { %>
+                            <button class="icon-btn" disabled data-tooltip="Already Processed">
+                                <i class="fas fa-check-circle"></i>
+                            </button>
+                            <button class="icon-btn" disabled data-tooltip="Already Processed">
+                                <i class="fas fa-times-circle"></i>
+                            </button>
+                            <% } %> --%>
                         </td>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </div>
+                    <tr>
+                        <td colspan="6">
+                            <div id="order<%= order.getOrderId() %>" class="collapse">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Book Name</th>
+                                            <th>Author</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            // Fetch order items for this order
+                                            List<OrderItem> orderItems = orderItemDAO.getOrderItemsByOrderId(order.getOrderId());
+                                            for (OrderItem item : orderItems) {
+                                                Book book = bookDAO.getBookById(item.getBookId());
+                                                double subtotal = book.getPrice() * item.getQuantity();
+                                        %>
+                                        <tr>
+                                            <td><%= book.getBookName() %></td>
+                                            <td><%= book.getAuthor() %></td>
+                                            <td><%= item.getQuantity() %></td>
+                                            <td>$<%= book.getPrice() %></td>
+                                            <td>$<%= subtotal %></td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+        <%@include file="footer.jsp" %>
 
-    <%@include file="footer.jsp" %> <!-- Include the footer -->
+        <script>
+    function updateOrderStatus(orderId, status) {
+        fetch('../update-order', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: "orderId=" + orderId + "&status=" + status,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Success message
+                alert("Order successfully updated!");
 
-</body>
+                // Smooth fade-out animation
+                const row = document.getElementById("order-" + orderId);
+                row.style.transition = "opacity 0.5s";
+                row.style.opacity = "0";
+
+                setTimeout(() => {
+                    // Reload the table by refreshing the page or making an AJAX call
+                    location.reload();  // Option 1: Reload the entire page
+                    // loadOrders();  // Option 2: If you have a function to reload data dynamically
+                }, 500);
+            } else {
+                // Show error alert with details
+                alert("Error: " + (data.error ? data.error : "Unknown error occurred."));
+            }
+        })
+        .catch(error => {
+            console.error("AJAX Error:", error);
+            alert("AJAX Request Failed: " + error.message);
+        });
+    }
+</script>
+
+
+
+    </body>
 
 </html>

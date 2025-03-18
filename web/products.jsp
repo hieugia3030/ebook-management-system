@@ -3,6 +3,7 @@
 <%@page import="entity.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isThreadSafe="false"  %>
 
 <!DOCTYPE html>
 <html>
@@ -29,23 +30,28 @@
                         })
                         .get();
                 let maxPrice = $("#maxPriceInput").val();
+                let searchQuery = $("#searchInput").val().trim();
 
                 // Use correct format: categoryIds=1&categoryIds=3
                 let params = new URLSearchParams();
                 selectedCategories.forEach(id => params.append("categoryIds", id));
                 params.append("maxPrice", maxPrice);
+                params.append("searchQuery", searchQuery);
 
                 $.ajax({
                     url: "filter-book?" + params.toString(),
                     type: "GET",
-                    data: $.param({categoryIds: selectedCategories}) + "&maxPrice=" + maxPrice,
                     success: function (response) {
-                        console.log("Success:", response);
                         let bookHtml = "";
-                        response.forEach(book => {
-                            bookHtml += '<div class="col-lg-3 col-md-4 col-sm-6 col-12"> <div class="card crd-ho"> <img src="book/' + book.photo + '" alt="' + book.bookName + '" class="img-container"> <p class="book-category">' + book.categoryName + '</p> <h5 class="book-title">' + book.bookName + '</h5> <p class="book-price">$' + book.price.toFixed(2) + '</p> <a href="#" class="cart-icon"> <i class="fa fa-shopping-cart"></i></a></div></div>';
-                        });
-                        console.log(bookHtml);
+                        if (response.length === 0) {
+                            bookHtml = `<div class="col-12 text-center">
+                        <p class="alert alert-warning">No books found. Try adjusting your filters or search.</p>
+                    </div>`;
+                        } else {
+                            response.forEach(book => {
+                                bookHtml += '<div class="col-lg-3 col-md-4 col-sm-6 col-12"> <div class="card crd-ho"> <img src="book/' + book.photo + '" alt="' + book.bookName + '" class="img-container"> <p class="book-category">' + book.categoryName + '</p> <h5 class="book-title">' + book.bookName + '</h5> <p class="book-price">$' + book.price.toFixed(2) + '</p> <a href="#" class="cart-icon"> <i class="fa fa-shopping-cart"></i></a></div></div>';
+                            });
+                        }
 
                         setTimeout(() => {
                             $("#book-list").html(bookHtml).fadeIn(300);
@@ -61,9 +67,19 @@
                 });
             }
             $(document).ready(function () {
-                $(".category-checkbox").change(filterBooks); // When category is checked
-                $("#maxPrice, #maxPriceInput").on("input", filterBooks); // When price slider changes
+                $(".category-checkbox").change(filterBooks);
+                $("#maxPrice, #maxPriceInput").on("input", filterBooks);
+
+                // Trigger search when clicking the button or pressing Enter
+                $("#searchButton").click(filterBooks);
+                $("#searchInput").keypress(function (event) {
+                    if (event.which === 13) { // 13 is the Enter key
+                        event.preventDefault();
+                        filterBooks();
+                    }
+                });
             });
+
             document.addEventListener("DOMContentLoaded", function () {
                 const urlParams = new URLSearchParams(window.location.search);
                 const categoryId = urlParams.get("categoryId");
@@ -79,6 +95,25 @@
                         console.log('input[type="checkbox"][value="' + categoryId + '"]")');
                     }
                 }
+            });
+
+            $(document).ready(function () {
+                $(".addToCartBtn").click(function () {
+                    var bookId = $(this).data("book-id");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "add-to-cart",
+                        data: {bookId: bookId},
+                        dataType: "json",
+                        success: function (response) {
+                            alert(response.message);
+                        },
+                        error: function () {
+                            alert("Error adding item to cart.");
+                        }
+                    });
+                });
             });
         </script>
     </head>
@@ -126,7 +161,17 @@
                     </div>
                 </div>
                 <div class="col-md-10">
-                    <h2>Books</h2>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2>Books</h2>
+                        <div class="col-md-6 justify-content-center">
+                            <form class="form-inline my-2 my-lg-0" onsubmit="event.preventDefault();
+                                    filterBooks();">
+                                <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search books..." aria-label="Search">
+                                <button id="searchButton" class="btn btn-primary my-2 my-sm-0" type="button">Search</button>
+                            </form>
+                        </div>
+                    </div>
+
                     <div class="row" id="book-list">
 
                         <% for (Book book : books) { int categoryId=book.getCategoryId();
@@ -145,9 +190,9 @@
                                 </h5>
                                 <p class="book-price">$<%= book.getPrice() %>
                                 </p>
-                                <a href="#" class="cart-icon">
-                                    <i class="fa fa-shopping-cart"></i>
-                                </a>
+                                <button class="addToCartBtn hover-btn btn btn-outline-primary" id="addToCartBtn-<%= book.getBookId()%>" data-book-id="<%= book.getBookId() %>">
+                                    Add to Cart
+                                </button>
                             </div>
                         </div>
                         <% } %>

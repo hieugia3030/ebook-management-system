@@ -27,18 +27,17 @@
             BookDAO bookDAO = new BookDAO();
             CategoryDAO catDAO = new CategoryDAO();
             OrderItemDAO itemDAO = new OrderItemDAO();
-            
+
             List<Order> orders = orderDAO.getOrdersByUserId(user.getId());
             List<OrderItem> items = itemDAO.getAll();
             Map<Integer, Book> bookMap = new HashMap<>();
             Map<Integer, Category> catMap = new HashMap<>();
 
-            
             for (Order order : orders) {
                 for (OrderItem item : items) {
                     if (item.getOrderId() == order.getOrderId()) {
                         order.addOrderItem(item);
-                
+
                         // Fetch book only if not already fetched
                         if (!bookMap.containsKey(item.getBookId())) {
                             Book book = bookDAO.getBookById(item.getBookId());
@@ -49,54 +48,63 @@
                     }
                 }
             }
-            
+
             request.setAttribute("orders", orders);
             request.setAttribute("bookMap", bookMap);
             request.setAttribute("catMap", catMap);
         %>
 
         <div class="container mt-4">
-    <h2>Your Orders</h2>
-    <c:forEach var="order" items="${orders}">
-        <div class="order-card">
-            <!-- Order Header -->
-            <div class="order-header">
-                <span class="fw-bold">Order Date: ${order.orderDateFormatted}</span>
+            <h2>Your Orders</h2>
 
-                <span class="status status-${order.status.toLowerCase()}">
-                    ${order.status}
-                </span>
-            </div>
-
-            <hr>
-
-            <c:set var="orderTotal" value="0" />
-            <!-- Order Items -->
-            <c:forEach var="orderItem" items="${order.orderItems}">
-                <c:set var="book" value="${bookMap[orderItem.bookId]}" />
-                <c:set var="cat" value="${catMap[book.categoryId]}" />
-                <c:set var="itemTotal" value="${book.price * orderItem.quantity}" />
-                <c:set var="orderTotal" value="${orderTotal + itemTotal}" />
-
-                <div class="order-item">
-                    <img src="book/${book.photo}" alt="Book Image">
-                    <div class="order-details">
-                        <h5>${book.bookName}</h5>
-                        <p>Category: ${cat.categoryName}</p>
-                        <p>Quantity: ${orderItem.quantity}</p>
+            <c:choose>
+                <c:when test="${empty orders}">
+                    <div class="no-orders">
+                        <i class="fas fa-frown"></i>
+                        <p>No orders found.</p>
                     </div>
-                    <span class="price">₫${itemTotal}</span>
-                </div>
-            </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="order" items="${orders}">
+                        <div class="order-card">
+                            <!-- Order Header -->
+                            <div class="order-header">
+                                <span class="fw-bold">Order Date: ${order.orderDateFormatted}</span>
+                                <span class="status status-${order.status.toLowerCase()}">
+                                    ${order.status}
+                                </span>
+                            </div>
 
-            <!-- Order Footer -->
-            <div class="order-footer">
-                <strong>Total:</strong> <span class="total-amount">₫${orderTotal}</span>
-            </div>
+                            <hr>
+
+                            <c:set var="orderTotal" value="0" />
+                            <!-- Order Items -->
+                            <c:forEach var="orderItem" items="${order.orderItems}">
+                                <c:set var="book" value="${bookMap[orderItem.bookId]}" />
+                                <c:set var="cat" value="${catMap[book.categoryId]}" />
+                                <c:set var="itemTotal" value="${book.price * orderItem.quantity}" />
+                                <c:set var="orderTotal" value="${orderTotal + itemTotal}" />
+
+                                <div class="order-item">
+                                    <img src="book/${book.photo}" alt="Book Image">
+                                    <div class="order-details">
+                                        <h5>${book.bookName}</h5>
+                                        <p>Category: ${cat.categoryName}</p>
+                                        <p>Quantity: ${orderItem.quantity}</p>
+                                    </div>
+                                    <span class="price">₫${itemTotal}</span>
+                                </div>
+                            </c:forEach>
+
+                            <!-- Order Footer -->
+                            <div class="order-footer">
+                                <strong>Total:</strong> <span class="total-amount">₫${orderTotal}</span>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
         </div>
-    </c:forEach>
-</div>
-
 
     </body>
 </html>

@@ -33,10 +33,7 @@
             <h3> <i class="fas fa-book"></i> Ebooks</h3> 
         </div>
         <div class="col-md-5">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            
         </div>
         <div class="col-md-4 navbar-buttons">
             <c:if test="${not empty userobj}">

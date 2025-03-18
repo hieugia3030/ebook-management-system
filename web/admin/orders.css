@@ -1,0 +1,93 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    text-align: center;
+}
+
+th {
+    background-color: #f4f4f4;
+    color: black;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.icon-btn i {
+    transition: color 0.2s ease;
+}
+
+/* Accept Button */
+.icon-btn.accept i {
+    color: #28a745;
+}
+
+.icon-btn.accept:hover i {
+    color: #218838;
+    transform: scale(1.1);
+}
+
+/* Cancel Button */
+.icon-btn.cancel i {
+    color: #dc3545;
+}
+
+.icon-btn.cancel:hover i {
+    color: #c82333;
+    transform: scale(1.1);
+}
+
+/* Disabled Buttons */
+.icon-btn:disabled i {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Tooltip */
+.icon-btn {
+    position: relative;
+}
+
+.icon-btn:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.icon-btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+}

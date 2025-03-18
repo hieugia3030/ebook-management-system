@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  *
  * @author ADMIN
  */
-@WebServlet(name = "FilterBookServlet", urlPatterns = {"/filter-book"})
+@WebServlet(name = "FilterBookServlet", urlPatterns = { "/filter-book" })
 public class FilterBookServlet extends HttpServlet {
 
     @Override
@@ -35,19 +35,23 @@ public class FilterBookServlet extends HttpServlet {
 
         String[] categoryIds = request.getParameterValues("categoryIds");
         String priceStr = request.getParameter("maxPrice");
+        String searchQuery = request.getParameter("searchQuery");
+
         BookDAO bookDAO = new BookDAO();
         List<Book> filteredBooks;
 
+        List<Integer> categoryList;
         try {
             int maxPrice = Integer.parseInt(priceStr);
-            List<Integer> categoryList;
             if (categoryIds != null) {
                 categoryList = Arrays.stream(categoryIds)
                         .map(Integer::parseInt)
                         .collect(Collectors.toList());
-                filteredBooks = bookDAO.getFilteredBooks(categoryList, maxPrice);
+                filteredBooks = bookDAO.getFilteredBooks(categoryList, maxPrice, searchQuery);
+
             } else {
-                filteredBooks = bookDAO.getAllBooksWithMaxPrice(maxPrice);
+                filteredBooks = bookDAO.getFilteredBooks(null, maxPrice, searchQuery);
+                // filteredBooks = bookDAO.getAllBooksWithMaxPrice(maxPrice);
             }
 
             String json = new Gson().toJson(booksToResponse(filteredBooks));
@@ -56,6 +60,7 @@ public class FilterBookServlet extends HttpServlet {
         } catch (SQLException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             out.print(e.getMessage());
+            response.sendDirect("products.jsp");
         } catch (NumberFormatException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             out.print("FormatException" + e.getMessage());
@@ -67,7 +72,8 @@ public class FilterBookServlet extends HttpServlet {
         CategoryDAO catDAO = new CategoryDAO();
         for (Book book : books) {
             String category = catDAO.getCategoryById(book.getCategoryId()).getCategoryName();
-            BookResponse res = new BookResponse(book.getBookId(), book.getBookName(), book.getAuthor(), book.getPrice(), book.getCategoryId(), category, book.getStatus(), book.getPhoto(), book.getUserEmail());
+            BookResponse res = new BookResponse(book.getBookId(), book.getBookName(), book.getAuthor(), book.getPrice(),
+                    book.getCategoryId(), category, book.getStatus(), book.getPhoto(), book.getUserEmail());
             list.add(res);
         }
         return list;
@@ -85,7 +91,8 @@ public class FilterBookServlet extends HttpServlet {
         private String photo;
         private String userEmail;
 
-        public BookResponse(int bookId, String bookName, String author, double price, int categoryId, String categoryName, String status, String photo, String userEmail) {
+        public BookResponse(int bookId, String bookName, String author, double price, int categoryId,
+                String categoryName, String status, String photo, String userEmail) {
             this.bookId = bookId;
             this.bookName = bookName;
             this.author = author;

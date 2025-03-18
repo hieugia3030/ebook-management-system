@@ -8,8 +8,15 @@
             <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/src/java/entity/Order.java</file>
             <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/src/java/user/sevlet/OrderServlet.java</file>
             <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/src/java/DAO/UserDAO.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/admin/orders.jsp</file>
             <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/cart.jsp</file>
             <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/src/java/entity/OrderItem.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/admin/footer.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/admin/edit_book.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/orders.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/src/java/admin/servelet/UpdateOrderServlet.java</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/products.jsp</file>
+            <file>file:/C:/Users/ADMIN/Documents/GitHub/ebook-management-system/web/login.jsp</file>
         </group>
     </open-files>
 </project-private>

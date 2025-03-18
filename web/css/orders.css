@@ -8,6 +8,18 @@
         margin: auto;
     }
 
+    .no-orders {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 20px;
+        color: gray;
+    }
+    .no-orders i {
+        font-size: 50px;
+        color: #999;
+        margin-bottom: 10px;
+    }
+
     .order-card {
         background: white;
         border-radius: 12px;
@@ -37,7 +49,7 @@
         border-radius: 5px;
     }
 
-    .status-delivered {
+    .status-success {
         background-color: #00c853;
         color: white;
     }

@@ -7,17 +7,31 @@ import java.util.*;
 public class CartDAO extends MyDAO {
 
     public boolean addToCart(int userId, int bookId, int quantity) throws SQLException {
-        xSql = "INSERT INTO Cart (userId, bookId, quantity) VALUES (?, ?, ?)";
+        // Query to check if the book is already in the cart
+        xSql = "SELECT COUNT(*) FROM Cart WHERE userId = ? AND bookId = ?";
         try {
             ps = con.prepareStatement(xSql);
             ps.setInt(1, userId);
             ps.setInt(2, bookId);
+            rs = ps.executeQuery();
+            
+            if (rs.next() && rs.getInt(1) > 0) {
+                throw new SQLException("This book is already added to the cart.");
+            }
+            
+            // If not found, proceed with adding to the cart
+            xSql = "INSERT INTO Cart (userId, bookId, quantity) VALUES (?, ?, ?)";
+            ps = con.prepareStatement(xSql);
+            ps.setInt(1, userId);
+            ps.setInt(2, bookId);
             ps.setInt(3, quantity);
+            
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             throw e;
         }
     }
+    
 
     public boolean removeFromCart(int userId, int bookId) throws SQLException {
         xSql = "DELETE FROM Cart WHERE userId = ? AND bookId = ?";

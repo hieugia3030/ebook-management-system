@@ -2,6 +2,8 @@ package DAO;
 
 import entity.Order;
 import entity.OrderItem;
+import entity.OrderRes;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -122,9 +124,48 @@ public class OrderDAO extends MyDAO {
         return orders;
     }
 
+    public List<OrderRes> getAllOrderRes() throws SQLException {
+        List<OrderRes> orders = new ArrayList<>();
+        String xSql = "SELECT o.orderId, u.name AS customerName, " +
+              "FORMAT(o.orderDate, 'yyyy-MM-dd HH:mm:ss') AS orderDate, " +
+              "COALESCE(SUM(b.price * oi.quantity), 0) AS totalPrice, o.status " +
+              "FROM Orders o " +
+              "JOIN [User] u ON o.userId = u.id " +
+              "LEFT JOIN OrderItems oi ON o.orderId = oi.orderId " +
+              "LEFT JOIN Book b ON oi.bookId = b.bookId " +
+              "GROUP BY o.orderId, u.name, o.orderDate, o.status " +
+              "ORDER BY " +
+              "  CASE " +
+              "    WHEN o.status = 'Pending' THEN 1 " +
+              "    WHEN o.status = 'Cancelled' THEN 2 " +
+              "    WHEN o.status = 'Success' THEN 3 " +
+              "    ELSE 4 " +
+              "  END, " +
+              "  o.orderDate DESC;";
+
+
+        try {
+            ps = con.prepareStatement(xSql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                OrderRes order = new OrderRes(
+                        rs.getInt("orderId"),
+                        rs.getString("customerName"),
+                        rs.getString("orderDate"),
+                        rs.getDouble("totalPrice"),
+                        rs.getString("status"));
+                orders.add(order);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return orders;
+    }
+
     // Update order status
     public boolean updateOrderStatus(int orderId, String status) throws SQLException {
-        xSql = "UPDATE Orders SET status = ? WHERE orderId = ?";
+        xSql = "UPDATE Orders SET [status] = ? WHERE orderId = ?";
 
         try {
             ps = con.prepareStatement(xSql);

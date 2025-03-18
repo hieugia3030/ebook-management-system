@@ -48,6 +48,7 @@ CREATE TABLE Orders (
     FOREIGN KEY (userId) REFERENCES [User](id) ON DELETE CASCADE
 );
 
+
 CREATE TABLE OrderItems (
     orderItemId INT IDENTITY(1,1) PRIMARY KEY,
     orderId INT NOT NULL,
@@ -156,4 +157,5 @@ VALUES
 ('Essentialism: The Disciplined Pursuit of Less', 'Greg McKeown', 13.75, 6, 'Available', 'essentialism.jpg', 'admin1@example.com'),
 ('Atomic Habits', 'James Clear', 13.95, 6, 'Available', 'atomic_habits.jpg', 'admin2@example.com');
 
-select * from Orders
+select * from [User]
+SELECT * FROM Book WHERE bookName LIKE '%a%'
